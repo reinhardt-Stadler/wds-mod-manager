@@ -28,7 +28,6 @@ from wds.registry import (
     update_file_attribution,
 )
 from wds.utils import collect_all_files, file_hash, mod_id_from_filename, normalize_path
-from wds.operation_log import log_operation
 
 
 # ===========================================================================
@@ -148,8 +147,6 @@ def install_mod(
 
     save_registry(game_root, registry)
 
-    log_operation(game_root, "install", mod_id, game_info.game_id,
-                  {"file_count": len(files_to_install)})
     return mod_info
 
 
@@ -195,8 +192,6 @@ def uninstall_mod(
     registry.mods[mod_id].active_count = 0
 
     save_registry(game_root, registry)
-    log_operation(game_root, "uninstall", mod_id, game_info.game_id,
-                  {"file_count": count})
     return count
 
 
@@ -252,7 +247,4 @@ def switch_mod(
     registry.mods[mod_id].active_count = count
 
     save_registry(game_root, registry)
-    action = "switch_on" if enable else "switch_off"
-    log_operation(game_root, action, mod_id, game_info.game_id,
-                  {"file_count": count})
     return count

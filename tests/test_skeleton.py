@@ -9,7 +9,7 @@ class TestProjectSkeleton:
     def test_version_importable(self):
         """wds 包可导入且版本号正确"""
         from wds import __version__
-        assert __version__ == "0.1.0"
+        assert __version__ == "1.0.0"
 
     def test_cli_app_exists(self):
         """Typer app 对象存在"""
@@ -78,7 +78,7 @@ class TestAppSubcommands:
         from wds.cli.app import app
         commands = list(app.registered_commands)
         command_names = {getattr(c.callback, "__name__", None) for c in commands}
-        expected = {"scan", "install", "status", "uninstall", "switch", "rename", "list_mods"}
+        expected = {"scan", "install", "status", "uninstall", "switch", "rename", "list_mods", "undo"}
         for name in expected:
             assert name in command_names, f"缺少子命令: {name}"
 

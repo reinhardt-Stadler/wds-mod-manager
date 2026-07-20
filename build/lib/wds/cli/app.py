@@ -75,7 +75,6 @@ WELCOME_TEXT = """
     wds uninstall <mod_id>      卸载美化包（还原原版）
     wds ls-mods                 列出所有已注册美化包
     wds rename <mod_id> <名称>  修改美化包别名
-    wds undo                    回退上一次操作
 
   工具管理:
     wds -u                      更新到最新版本
@@ -427,87 +426,6 @@ def list_mods(
         wds_root=wds_root,
         all_games=all_games,
     )
-
-
-# ===========================================================================
-# undo 命令
-# ===========================================================================
-
-
-@app.command()
-def undo(
-    ctx: typer.Context,
-    game_id: str = typer.Option(
-        None, "--game", "-g", help="游戏缩写 (如 M41)，不指定则自动查找最近操作的游戏",
-    ),
-):
-    """回退上一次操作（install/uninstall/switch）"""
-    from wds.installer import switch_mod, uninstall_mod
-    from wds.operation_log import get_last_operation, pop_last_operation
-    from wds.scanner import discover_games
-
-    wds_root = _require_wds_root(ctx)
-    games = discover_games(wds_root)
-
-    # 确定目标游戏
-    if game_id:
-        target_games = [g for g in games if g.game_id.lower() == game_id.lower()]
-        if not target_games:
-            print_error(f"未找到游戏: {game_id}")
-            raise typer.Exit(code=1)
-        game = target_games[0]
-    else:
-        # 在所有游戏中找最近的操作
-        game = None
-        latest_op = None
-        for g in games:
-            op = get_last_operation(g.root_path)
-            if op is not None:
-                if latest_op is None or op["timestamp"] > latest_op["timestamp"]:
-                    latest_op = op
-                    game = g
-        if game is None or latest_op is None:
-            print_info("没有可回退的操作记录。")
-            return
-
-    # 弹出最后一条记录
-    op = pop_last_operation(game.root_path)
-    if op is None:
-        print_info("没有可回退的操作记录。")
-        return
-
-    action = op["action"]
-    mod_id = op["mod_id"]
-    from wds.cli.display import print_success
-
-    typer.echo(f"\n  回退操作: {action} (mod: {mod_id}, 游戏: {game.game_id})")
-
-    try:
-        if action == "install":
-            # 回退 install → uninstall
-            uninstall_mod(game.root_path, game, mod_id)
-            print_success(f"已撤销安装: {mod_id} 的文件已还原为原版")
-
-        elif action == "uninstall":
-            # 回退 uninstall → 重新启用
-            switch_mod(game.root_path, game, mod_id, enable=True)
-            print_success(f"已撤销卸载: {mod_id} 已重新启用")
-
-        elif action == "switch_on":
-            # 回退 switch_on → 禁用
-            switch_mod(game.root_path, game, mod_id, enable=False)
-            print_success(f"已撤销启用: {mod_id} 已禁用")
-
-        elif action == "switch_off":
-            # 回退 switch_off → 启用
-            switch_mod(game.root_path, game, mod_id, enable=True)
-            print_success(f"已撤销禁用: {mod_id} 已重新启用")
-
-        else:
-            print_error(f"未知操作类型: {action}，无法回退")
-    except Exception as e:
-        print_error(f"回退失败: {e}")
-        raise typer.Exit(code=1)
 
 
 # ===========================================================================
