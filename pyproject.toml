@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wds-mod-manager"
+version = "0.1.0"
+description = "WDS 图包管理工具 — 安装、切换、回滚美化包"
+requires-python = ">=3.10"
+dependencies = [
+    "typer>=0.9",
+    "rich>=13.0",
+]
+
+[project.scripts]
+wds = "wds.cli.app:run"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+markers = [
+    "smoke: manual smoke tests against real D:\\WDS (deselect with '-m \"not smoke\"')",
+]
+addopts = "-m \"not smoke\""
+testpaths = ["tests"]

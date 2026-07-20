@@ -1,0 +1,2 @@
+[console_scripts]
+wds = wds.cli.app:run
