@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """M01: 核心数据结构
 
 定义全项目共享的数据类，所有模块的输入输出类型。

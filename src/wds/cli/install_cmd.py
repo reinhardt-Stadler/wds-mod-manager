@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """M10: install 命令 — 执行完整安装流程"""
 
 from __future__ import annotations

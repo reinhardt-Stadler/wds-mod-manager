@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """M05: 备份管理
 
 管理游戏目录内的 _backup/ 备份池（D-001）。

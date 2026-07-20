@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """M02: 工具函数
 
 全项目复用的纯函数：哈希计算、路径操作、命名转换、文件收集。

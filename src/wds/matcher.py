@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """M04: 路径匹配引擎
 
 D-014 类别优先匹配（取代 D-002 的纯文件名匹配）:

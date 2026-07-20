@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """M12: 管理命令集 — uninstall / switch / rename / list"""
 
 from __future__ import annotations

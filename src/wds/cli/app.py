@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """M08: WDS Mod Manager — Typer 主应用入口
 
 提供全局选项、子命令注册、自管理命令（-un/-u/-help）和启动横幅。
@@ -58,6 +59,7 @@ BANNER = r"""
  ║   \/  \/ |____/ |____/  |_|  |_|\___/ \__,_|\___| ║
  ║                                                     ║
  ║   WDS 图包管理器  v{version:<33s}║
+ ║   (c) 2026 Reinhardt Stadler. All Rights Reserved.  ║
  ║                                                     ║
  ╚══════════════════════════════════════════════════════╝
 """.format(version=__version__)

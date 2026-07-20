@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """M10a: 交互式路径识别
 
 将 scan_mod 的文件级匹配结果按 mod 源目录分组，逐组交付用户审查：

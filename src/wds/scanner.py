@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """M03: 游戏发现
 
 自动扫描 WDS 根目录，递归发现所有游戏，构建 GameInfo 列表。

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """M13: 输出格式化 — Rich 表格、面板、进度条、彩色消息"""
 
 from __future__ import annotations

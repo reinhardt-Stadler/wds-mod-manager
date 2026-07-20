@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """M11: status 命令 — 展示游戏的美化包安装状态"""
 
 from __future__ import annotations

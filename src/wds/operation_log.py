@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """操作日志: 记录每次 install/uninstall/switch 操作，支持 undo 回退。
 
 日志存储于 {game_root}/_backup/operation_log.json，追加式写入。

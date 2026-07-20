@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """M06: 注册表管理
 
 读写 _backup/game_registry.json，维护每个游戏的 mod 注册表和文件归属表。

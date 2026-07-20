@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """M07: 安装引擎
 
 编排完整的 install/uninstall/switch 流程，串联 M01~M06。

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Reinhardt Stadler. All Rights Reserved.
 """M09: scan 命令 — 扫描 mod 目录，展示路径映射表"""
 
 from __future__ import annotations
