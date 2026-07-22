@@ -50,18 +50,17 @@ def _resolve_wds_root(value: str | None) -> Path:
 # ===========================================================================
 
 BANNER = r"""
- ╔══════════════════════════════════════════════════════╗
- ║                                                     ║
- ║   _    _  ____   ____    __  __             _      ║
- ║  | |  | ||  _ \ / ___|  |  \/  | ___   __| | ___  ║
- ║  | |/\| || | | |\___ \  | |\/| |/ _ \ / _` |/ _ \ ║
- ║  \  /\  /| |_| | ___) | | |  | | (_) | (_| |  __/ ║
- ║   \/  \/ |____/ |____/  |_|  |_|\___/ \__,_|\___| ║
- ║                                                     ║
- ║   WDS 图包管理器  v{version:<33s}║
- ║   (c) 2026 Reinhardt Stadler. All Rights Reserved.  ║
- ║                                                     ║
- ╚══════════════════════════════════════════════════════╝
+ ╔═══════════════════════════════════════════════════════════════╗
+ ║                                                               ║
+ ║    ╦ ╦ ╔╦╗ ╔═╗   ╔╦╗ ╔═╗ ╔╦╗   ╔╦╗ ╔═╗ ╔╗╔ ╔═╗ ╔═╗ ╔═╗ ╦═╗    ║
+ ║    ║║║  ║║ ╚═╗   ║║║ ║ ║  ║║   ║║║ ╠═╣ ║║║ ╠═╣ ║ ╦ ║╣  ╠╦╝    ║
+ ║    ╚╩╝ ═╩╝ ╚═╝   ╩ ╩ ╚═╝ ═╩╝   ╩ ╩ ╩ ╩ ╝╚╝ ╩ ╩ ╚═╝ ╚═╝ ╩╚═    ║
+ ║                                                               ║
+ ║    Visual Mod Toolkit for WDS Wargames                        ║
+ ║    v{version:<14s}                                            ║
+ ║    (c) 2026 Reinhardt Stadler                                 ║
+ ║                                                               ║
+ ╚═══════════════════════════════════════════════════════════════╝
 """.format(version=__version__)
 
 WELCOME_TEXT = """
@@ -85,7 +84,7 @@ WELCOME_TEXT = """
     wds -help                   查看完整使用说明
     wds --version               显示版本号
 
-  提示: 美化包需先解压为文件夹再使用，暂不支持直接读取 zip/7z。
+  提示: 美化包需先解压为文件夹再使用，暂不支持直接读取 zip/7z。有问题输入 -help 查看说明。
 """
 
 
@@ -111,12 +110,23 @@ def _interactive_loop():
             typer.echo("  再见！")
             break
 
-        # 将用户输入拆分为参数，交给 Typer app 处理
+        # 将用户输入拆分为参数
         import shlex
         try:
             args = shlex.split(line)
         except ValueError:
             args = line.split()
+
+        # 允许用户在 REPL 内多打一个 "wds" 前缀
+        if args and args[0].lower() == "wds":
+            args = args[1:]
+            if not args:
+                continue
+
+        # 拦截自管理命令（-help/-un/-u 等），不经过 Typer 解析
+        if args[0] in _SELF_COMMANDS:
+            _SELF_COMMANDS[args[0]]()
+            continue
 
         try:
             app(args, standalone_mode=False)
